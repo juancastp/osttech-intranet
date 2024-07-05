@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Layout from './components/Layout';
 import Dashboard from './pages/Dashboard';
 import ControlHorario from './pages/ControlHorario';
@@ -11,13 +11,13 @@ const App = () => {
   return (
     <Router>
       <Layout>
-        <Switch>
-          <Route path="/" exact component={Dashboard} />
-          <Route path="/control-horario" component={ControlHorario} />
-          <Route path="/gestion-pedidos" component={GestionPedidos} />
-          <Route path="/registro-clientes" component={RegistroClientes} />
-          <Route path="/roles-permisos" component={RolesPermisos} />
-        </Switch>
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/control-horario" element={<ControlHorario />} />
+          <Route path="/gestion-pedidos" element={<GestionPedidos />} />
+          <Route path="/registro-clientes" element={<RegistroClientes />} />
+          <Route path="/roles-permisos" element={<RolesPermisos />} />
+        </Routes>
       </Layout>
     </Router>
   );
