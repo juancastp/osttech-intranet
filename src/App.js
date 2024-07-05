@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Layout from './components/layout';
+import Dashboard from './pages/dashboard';
+import ControlHorario from './pages/controlhorario';
+import GestionPedidos from './pages/gestionpedidos';
+import RegistroClientes from './pages/registroclientes';
+import RolesPermisos from './pages/rolespermisos';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Layout>
+        <Switch>
+          <Route path="/" exact component={Dashboard} />
+          <Route path="/control-horario" component={ControlHorario} />
+          <Route path="/gestion-pedidos" component={GestionPedidos} />
+          <Route path="/registro-clientes" component={RegistroClientes} />
+          <Route path="/roles-permisos" component={RolesPermisos} />
+        </Switch>
+      </Layout>
+    </Router>
   );
-}
+};
 
 export default App;
