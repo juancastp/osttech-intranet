@@ -3,9 +3,6 @@ import axiosInstance from '../api/axiosConfig';
 
 const ControlHorario = () => {
   const [timeEntries, setTimeEntries] = useState([]);
-  const [location, setLocation] = useState('');
-  const [startTime, setStartTime] = useState('');
-  const [endTime, setEndTime] = useState('');
 
   useEffect(() => {
     const fetchTimeEntries = async () => {
@@ -25,14 +22,12 @@ const ControlHorario = () => {
       navigator.geolocation.getCurrentPosition(async (position) => {
         const { latitude, longitude } = position.coords;
         const location = `Lat: ${latitude}, Long: ${longitude}`;
-        setLocation(location);
         try {
           const response = await axiosInstance.post('/time-entries', {
             user_id: 1, // Reemplazar con el ID del usuario actual
             start_time: new Date().toISOString(),
             location,
           });
-          setStartTime(response.data.start_time);
           setTimeEntries([...timeEntries, response.data]);
         } catch (error) {
           console.error('Error starting time entry:', error);
@@ -48,7 +43,6 @@ const ControlHorario = () => {
       const response = await axiosInstance.put(`/time-entries/${timeEntries[timeEntries.length - 1].id}`, {
         end_time: new Date().toISOString(),
       });
-      setEndTime(response.data.end_time);
       setTimeEntries(timeEntries.map(entry => entry.id === response.data.id ? response.data : entry));
     } catch (error) {
       console.error('Error ending time entry:', error);
