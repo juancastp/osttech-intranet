@@ -2,11 +2,11 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use app\Http\Controllers\UserController;
-use app\Http\Controllers\ClientController;
-use app\Http\Controllers\OrderController;
-use app\Http\Controllers\RoleController;
-use app\Http\Controllers\TimeEntryController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ClientController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\TimeEntryController;
 
 Route::apiResource('users', UserController::class);
 Route::apiResource('clients', ClientController::class);
