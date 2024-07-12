@@ -2,11 +2,11 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\ClientController;
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\RoleController;
-use App\Http\Controllers\TimeEntryController;
+use app\Http\Controllers\UserController;
+use app\Http\Controllers\ClientController;
+use app\Http\Controllers\OrderController;
+use app\Http\Controllers\RoleController;
+use app\Http\Controllers\TimeEntryController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
