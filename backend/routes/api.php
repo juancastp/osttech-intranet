@@ -8,10 +8,6 @@ use app\Http\Controllers\OrderController;
 use app\Http\Controllers\RoleController;
 use app\Http\Controllers\TimeEntryController;
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::apiResource('users', UserController::class);
 Route::apiResource('clients', ClientController::class);
 Route::apiResource('orders', OrderController::class);

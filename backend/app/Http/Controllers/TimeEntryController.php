@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace app\Http\Controllers;
 
-use App\Models\TimeEntry;
+use app\Models\TimeEntry;
 use Illuminate\Http\Request;
 
 class TimeEntryController extends Controller
