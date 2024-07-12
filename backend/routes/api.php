@@ -8,8 +8,10 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TimeEntryController;
 
-Route::apiResource('users', UserController::class);
-Route::apiResource('clients', ClientController::class);
-Route::apiResource('orders', OrderController::class);
-Route::apiResource('roles', RoleController::class);
-Route::apiResource('time-entries', TimeEntryController::class);
+Route::middleware('api')->group(function () {
+    Route::apiResource('users', UserController::class);
+    Route::apiResource('clients', ClientController::class);
+    Route::apiResource('orders', OrderController::class);
+    Route::apiResource('roles', RoleController::class);
+    Route::apiResource('time-entries', TimeEntryController::class);
+});
