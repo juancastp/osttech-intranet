@@ -3,8 +3,6 @@ import axiosInstance from '../api/axiosConfig';
 
 const ControlHorario = () => {
   const [timeEntries, setTimeEntries] = useState([]);
-  const [startTime, setStartTime] = useState('');
-  const [endTime, setEndTime] = useState('');
   const [location, setLocation] = useState('');
 
   useEffect(() => {
