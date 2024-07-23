@@ -23,7 +23,7 @@ const ControlHorario = () => {
       const response = await axiosInstance.post('/time-entries', {
         user_id: 1,
         start_time: new Date().toISOString(),
-        location,
+        location: location || 'default location', // Ensure location is not empty
       });
       setTimeEntries([...timeEntries, response.data]);
     } catch (error) {
