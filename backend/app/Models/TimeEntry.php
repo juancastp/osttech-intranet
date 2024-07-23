@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class TimeEntry extends Model
 {
     use HasFactory;
+<<<<<<< HEAD
 
     protected $fillable = [
         'user_id',
@@ -17,4 +18,6 @@ class TimeEntry extends Model
         'extra_hours',
         'geolocation',
     ];
+=======
+>>>>>>> d9378c339999ca2e823e2a1d3d26bbf625171ecf
 }
