@@ -14,33 +14,31 @@ class TimeEntryController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'start_time' => 'required|date_format:Y-m-d H:i:s',
-            'end_time' => 'nullable|date_format:Y-m-d H:i:s|after:start_time',
+        $validatedData = $request->validate([
+            'user_id' => 'required|integer',
+            'start_time' => 'required|date_format:Y-m-d\TH:i:sP',
             'location' => 'nullable|string',
         ]);
 
-        return TimeEntry::create($request->all());
-    }
+        $timeEntry = TimeEntry::create($validatedData);
 
-    public function show(TimeEntry $timeEntry)
-    {
-        return $timeEntry;
+        return response()->json($timeEntry, 201);
     }
 
     public function update(Request $request, TimeEntry $timeEntry)
     {
-        $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'start_time' => 'required|date_format:Y-m-d H:i:s',
-            'end_time' => 'nullable|date_format:Y-m-d H:i:s|after:start_time',
-            'location' => 'nullable|string',
+        $validatedData = $request->validate([
+            'end_time' => 'required|date_format:Y-m-d\TH:i:sP',
         ]);
 
-        $timeEntry->update($request->all());
+        $timeEntry->update($validatedData);
 
-        return $timeEntry;
+        return response()->json($timeEntry);
+    }
+
+    public function show(TimeEntry $timeEntry)
+    {
+        return response()->json($timeEntry);
     }
 
     public function destroy(TimeEntry $timeEntry)
