@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axiosInstance from '../api/axiosConfig';
+import axios from 'axios';
 
 const Dashboard = () => {
   const [summaryData, setSummaryData] = useState({
@@ -8,15 +8,17 @@ const Dashboard = () => {
     totalOrders: 0,
     totalTimeEntries: 0,
   });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchSummaryData = async () => {
       try {
         const [usersRes, clientsRes, ordersRes, timeEntriesRes] = await Promise.all([
-          axiosInstance.get('/users'),
-          axiosInstance.get('/clients'),
-          axiosInstance.get('/orders'),
-          axiosInstance.get('/time-entries'),
+          axios.get('http://192.168.51.172:8000/api/users'),
+          axios.get('http://192.168.51.172:8000/api/clients'),
+          axios.get('http://192.168.51.172:8000/api/orders'),
+          axios.get('http://192.168.51.172:8000/api/time-entries'),
         ]);
         setSummaryData({
           totalUsers: usersRes.data.length,
@@ -24,13 +26,24 @@ const Dashboard = () => {
           totalOrders: ordersRes.data.length,
           totalTimeEntries: timeEntriesRes.data.length,
         });
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching summary data:', error);
+        setError('Error fetching summary data');
+        setLoading(false);
       }
     };
 
     fetchSummaryData();
   }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   return (
     <div>
