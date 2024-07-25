@@ -9,19 +9,19 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TimeEntryController;
 use App\Http\Controllers\AuthController;
 
-Route::post('register', [AuthController::class, 'register']);
-Route::post('login', [AuthController::class, 'login']);
-Route::post('logout', [AuthController::class, 'logout']);
+Route::middleware('api')->group(function () {
+    Route::post('register', [AuthController::class, 'register']);
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('logout', [AuthController::class, 'logout']);
+});
 
-Route::middleware(['auth:sanctum'])->group(function () {
-    Route::middleware('role:superadmin')->group(function () {
-        Route::apiResource('users', UserController::class);
-        Route::apiResource('roles', RoleController::class);
-    });
+Route::middleware(['auth:sanctum', 'role:superadmin'])->group(function () {
+    Route::apiResource('users', UserController::class);
+    Route::apiResource('roles', RoleController::class);
+});
 
-    Route::middleware('role:empleado')->group(function () {
-        Route::apiResource('clients', ClientController::class);
-        Route::apiResource('orders', OrderController::class);
-        Route::apiResource('time-entries', TimeEntryController::class);
-    });
+Route::middleware(['auth:sanctum', 'role:empleado'])->group(function () {
+    Route::apiResource('clients', ClientController::class);
+    Route::apiResource('orders', OrderController::class);
+    Route::apiResource('time-entries', TimeEntryController::class);
 });
