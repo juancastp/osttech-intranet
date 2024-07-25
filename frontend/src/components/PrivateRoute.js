@@ -1,16 +1,11 @@
 import React from 'react';
-import { Route, Navigate } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth'; // Crear un hook para manejar la autenticación
+import { Navigate } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
 
-const PrivateRoute = ({ element: Element, ...rest }) => {
-  const { isAuthenticated, user } = useAuth();
+const PrivateRoute = ({ children }) => {
+  const { isAuthenticated } = useAuth();
 
-  return (
-    <Route
-      {...rest}
-      element={isAuthenticated ? <Element user={user} /> : <Navigate to="/login" />}
-    />
-  );
+  return isAuthenticated ? children : <Navigate to="/login" />;
 };
 
 export default PrivateRoute;

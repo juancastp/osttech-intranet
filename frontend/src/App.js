@@ -15,11 +15,11 @@ const App = () => {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <PrivateRoute path="/dashboard" element={<Dashboard />} />
-        <PrivateRoute path="/control-horario" element={<ControlHorario />} />
-        <PrivateRoute path="/gestion-pedidos" element={<GestionPedidos />} />
-        <PrivateRoute path="/registro-clientes" element={<RegistroClientes />} />
-        <PrivateRoute path="/roles-permisos" element={<RolesPermisos />} />
+        <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+        <Route path="/control-horario" element={<PrivateRoute><ControlHorario /></PrivateRoute>} />
+        <Route path="/gestion-pedidos" element={<PrivateRoute><GestionPedidos /></PrivateRoute>} />
+        <Route path="/registro-clientes" element={<PrivateRoute><RegistroClientes /></PrivateRoute>} />
+        <Route path="/roles-permisos" element={<PrivateRoute><RolesPermisos /></PrivateRoute>} />
         <Route path="/" element={<Navigate to="/dashboard" />} />
       </Routes>
     </Router>
