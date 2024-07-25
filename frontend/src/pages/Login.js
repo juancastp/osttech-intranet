@@ -1,47 +1,48 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Importar useNavigate en lugar de useHistory
 import axiosInstance from '../api/axiosConfig';
-import { useHistory } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const history = useHistory();
+  const navigate = useNavigate(); // Usar useNavigate en lugar de useHistory
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log('Logging in with:', { email, password });
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
     try {
       const response = await axiosInstance.post('/login', {
         email,
         password,
       });
-      console.log('Login response:', response.data);
-      // Assuming you store the user info in local storage or context
-      // localStorage.setItem('user', JSON.stringify(response.data));
-      history.push('/dashboard');
+      console.log('Response:', response.data); // Para depuración
+      // Guardar el usuario autenticado en el contexto o estado global si es necesario
+      navigate('/dashboard'); // Redirigir al dashboard
     } catch (error) {
       console.error('Error logging in:', error);
     }
   };
 
   return (
-    <div>
-      <h2>Login</h2>
+    <div className="login-container">
+      <h2>Iniciar Sesión</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Email:</label>
+          <label>Email</label>
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
         </div>
         <div>
-          <label>Contraseña:</label>
+          <label>Contraseña</label>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
         </div>
         <button type="submit">Iniciar Sesión</button>
