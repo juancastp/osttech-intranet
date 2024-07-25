@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Sanctum\HasApiTokens;
 
 class AuthController extends Controller
 {
@@ -21,32 +22,28 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role_id' => $request->role_id // Asigna el rol durante el registro
+            'role_id' => $request->role_id
         ]);
 
         return response()->json(['message' => 'User registered successfully'], 201);
     }
 
     public function login(Request $request)
-{
-    $credentials = $request->validate([
-        'email' => 'required|string|email',
-        'password' => 'required|string',
-    ]);
+    {
+        $credentials = $request->validate([
+            'email' => 'required|string|email',
+            'password' => 'required|string',
+        ]);
 
-    \Log::info('Attempting login with credentials: ', $credentials);
+        if (!Auth::attempt($credentials)) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
 
-    if (Auth::attempt($credentials)) {
-        $request->session()->regenerate();
-        \Log::info('Login successful for user: ', [Auth::user()]);
-        return response()->json(Auth::user());
+        $user = Auth::user();
+        $token = $user->createToken('token-name')->plainTextToken;
+
+        return response()->json(['token' => $token, 'user' => $user]);
     }
-
-    \Log::warning('Login failed for credentials: ', $credentials);
-
-    return response()->json(['message' => 'The provided credentials do not match our records.'], 401);
-}
-
 
     public function logout(Request $request)
     {
@@ -56,6 +53,4 @@ class AuthController extends Controller
 
         return response()->json(['message' => 'User logged out successfully']);
     }
-
-    
 }
