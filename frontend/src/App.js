@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import ControlHorario from './pages/ControlHorario';
 import GestionPedidos from './pages/GestionPedidos';
@@ -12,16 +12,16 @@ import PrivateRoute from './components/PrivateRoute';
 const App = () => {
   return (
     <Router>
-      <Switch>
-        <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} />
-        <PrivateRoute path="/dashboard" component={Dashboard} />
-        <PrivateRoute path="/control-horario" component={ControlHorario} />
-        <PrivateRoute path="/gestion-pedidos" component={GestionPedidos} />
-        <PrivateRoute path="/registro-clientes" component={RegistroClientes} />
-        <PrivateRoute path="/roles-permisos" component={RolesPermisos} />
-        <Redirect from="/" to="/dashboard" />
-      </Switch>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <PrivateRoute path="/dashboard" element={<Dashboard />} />
+        <PrivateRoute path="/control-horario" element={<ControlHorario />} />
+        <PrivateRoute path="/gestion-pedidos" element={<GestionPedidos />} />
+        <PrivateRoute path="/registro-clientes" element={<RegistroClientes />} />
+        <PrivateRoute path="/roles-permisos" element={<RolesPermisos />} />
+        <Route path="/" element={<Navigate to="/dashboard" />} />
+      </Routes>
     </Router>
   );
 };
