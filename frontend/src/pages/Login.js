@@ -1,46 +1,52 @@
 import React, { useState } from 'react';
 import axiosInstance from '../api/axiosConfig';
+import { useHistory } from 'react-router-dom';
 
 const Login = () => {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const history = useHistory();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log('Logging in with:', { email, password });
     try {
-      await axiosInstance.post('/login', formData);
-      // Redireccionar o mostrar mensaje de éxito
+      const response = await axiosInstance.post('/login', {
+        email,
+        password,
+      });
+      console.log('Login response:', response.data);
+      // Assuming you store the user info in local storage or context
+      // localStorage.setItem('user', JSON.stringify(response.data));
+      history.push('/dashboard');
     } catch (error) {
       console.error('Error logging in:', error);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="email"
-        name="email"
-        value={formData.email}
-        onChange={handleChange}
-        placeholder="Email"
-        required
-      />
-      <input
-        type="password"
-        name="password"
-        value={formData.password}
-        onChange={handleChange}
-        placeholder="Contraseña"
-        required
-      />
-      <button type="submit">Iniciar Sesión</button>
-    </form>
+    <div>
+      <h2>Login</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Email:</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div>
+          <label>Contraseña:</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <button type="submit">Iniciar Sesión</button>
+      </form>
+    </div>
   );
 };
 
