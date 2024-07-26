@@ -14,7 +14,7 @@ const Login = () => {
       const response = await axios.post('http://192.168.51.172:8000/api/login', { email, password });
       localStorage.setItem('token', response.data.token);
       // Redirigir al dashboard después de un login exitoso
-      navigate('/dashboard');
+      navigate('../index');
     } catch (error) {
       setError('Credenciales incorrectas');
     }
