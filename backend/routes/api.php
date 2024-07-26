@@ -9,15 +9,11 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TimeEntryController;
 
-Route::middleware('api')->group(function () {
-    Route::post('register', [AuthController::class, 'register']);
-    Route::post('login', [AuthController::class, 'login']);
-    Route::post('logout', [AuthController::class, 'logout']);
-    
-    Route::middleware(['auth:sanctum', 'role:superadmin'])->group(function () {
-        Route::apiResource('users', UserController::class);
-        Route::apiResource('roles', RoleController::class);
-    });
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout']);
+});
 
     Route::middleware(['auth:sanctum', 'role:empleado'])->group(function () {
         Route::apiResource('clients', ClientController::class);
