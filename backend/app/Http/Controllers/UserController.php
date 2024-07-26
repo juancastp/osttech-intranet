@@ -29,9 +29,9 @@ class UserController extends Controller
         return $user;
     }
 
-    public function show(User $user)
+    public function show(Request $request)
     {
-        return $user;
+        return response()->json($request->user());
     }
 
     public function update(Request $request, User $user)

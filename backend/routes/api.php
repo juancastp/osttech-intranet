@@ -15,9 +15,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 });
 
-    Route::middleware(['auth:sanctum', 'role:empleado'])->group(function () {
-        Route::apiResource('clients', ClientController::class);
-        Route::apiResource('orders', OrderController::class);
-        Route::apiResource('time-entries', TimeEntryController::class);
-    });
+Route::middleware(['auth:sanctum', 'role:empleado'])->group(function () {
+    Route::apiResource('clients', ClientController::class);
+    Route::apiResource('orders', OrderController::class);
+    Route::apiResource('time-entries', TimeEntryController::class);
+});
 
+Route::middleware('auth:sanctum')->get('/user', [UserController::class, 'show']);
