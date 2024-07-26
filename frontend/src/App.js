@@ -22,7 +22,7 @@ const App = () => {
           <Route path="registro-clientes" element={<RegistroClientes />} />
           <Route path="roles-permisos" element={<RolesPermisos />} />
         </Route>
-        <Route path="*" element={<Navigate to="/dashboard" />} />
+        <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </Router>
   );
