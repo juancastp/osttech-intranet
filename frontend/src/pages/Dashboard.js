@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axiosInstance from '../api/axiosConfig';
+import axiosInstance from '../axiosConfig';
 import { Link } from 'react-router-dom';
 
 const Dashboard = () => {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axiosInstance from '../api/axiosConfig';
+import axiosInstance from '../axiosConfig';
 
 const RegistroClientes = () => {
   const [clientes, setClientes] = useState([]);

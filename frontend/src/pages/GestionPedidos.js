@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axiosInstance from '../api/axiosConfig';
+import axiosInstance from '../axiosConfig';
 
 const GestionPedidos = () => {
   const [orders, setOrders] = useState([]);
