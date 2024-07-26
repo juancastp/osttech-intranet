@@ -20,4 +20,4 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::apiResource('orders', OrderController::class);
         Route::apiResource('time-entries', TimeEntryController::class);
     });
-});
+
