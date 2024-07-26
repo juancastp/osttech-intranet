@@ -12,7 +12,10 @@ use App\Http\Controllers\TimeEntryController;
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('/users', [UserController::class, 'index']);
+    Route::apiResource('clients', ClientController::class);
+    Route::apiResource('orders', OrderController::class);
+    Route::apiResource('time-entries', TimeEntryController::class);
 });
 
 Route::middleware(['auth:sanctum', 'role:empleado'])->group(function () {
