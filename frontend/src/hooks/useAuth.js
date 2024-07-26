@@ -1,24 +1,20 @@
-// src/hooks/useAuth.js
-import { useState, useEffect } from 'react';
-import axiosInstance from '../api/axiosConfig';
+import axios from 'axios';
 
-export const useAuth = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setUser] = useState(null);
+const axiosInstance = axios.create({
+  baseURL: 'http://192.168.51.172:8000/api',
+});
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const response = await axiosInstance.get('/user');
-        setUser(response.data);
-        setIsAuthenticated(true);
-      } catch (error) {
-        setIsAuthenticated(false);
-      }
-    };
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers['Authorization'] = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
-    checkAuth();
-  }, []);
-
-  return { isAuthenticated, user };
-};
+export default axiosInstance;
