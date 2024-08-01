@@ -18,4 +18,9 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+
+    # add csp header
+    Header set Content-Security-Policy "script-src 'self' 'unsafe-eval'"
+
+
 </IfModule>
